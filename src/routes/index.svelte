@@ -2,11 +2,11 @@
   import Client from './../../utils/client';
   import linkResolver from './../../linkResolver'
   import SliceZone from './SliceZone.svelte';
- 
+  import  { asDate } from "@prismicio/helpers";
   
 
-  export async function load()  {
-    const document = await Client.getByUID('blog_homepage','my-page', { fetchLinks: ['post.post_title', 'post.rich_text'] });
+  export async function load({ fetch })  {
+    const document = await Client(fetch).getByUID('blog_homepage','my-page', { fetchLinks: ['post.post_title', 'post.rich_text'] });
       console.log("document is",document)
       if(document){
         return {
@@ -29,7 +29,9 @@
 
 <main>
   <div class="container">
-    <h1>hello</h1>
+     
+     {asDate(document.data.date)}
+	  
   </div>
 </main>
 
